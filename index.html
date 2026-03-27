@@ -500,6 +500,7 @@
 
 <nav class="nav">
   <a href="#title" title="Title"></a>
+  <a href="#the-why" title="The Why"></a>
   <a href="#overview" title="Overview"></a>
   <a href="#architecture" title="Architecture"></a>
   <a href="#pr-review" title="PR Review"></a>
@@ -538,7 +539,36 @@
   </div>
 </section>
 
-<!-- SLIDE 2: Overview -->
+<!-- SLIDE 2: The Why -->
+<section class="slide" id="the-why">
+  <div class="content">
+    <div class="badge badge-purple">The Why</div>
+    <h2>The Problem We Were Solving</h2>
+    <div class="divider"></div>
+
+    <div class="scenario" style="border-left-color: var(--purple); margin-bottom: 24px;">
+      <div class="scenario-title">The Problem</div>
+      <p>We had a growing punch list — bugs spotted in reviews, product ideas floating in Slack, tasks discussed in threads — none of it making it into Jira. Things were getting lost. The backlog was falling behind real conversations.</p>
+    </div>
+
+    <div class="flow">
+      <div class="flow-step">😤 Punch list chaos</div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-step">💬 Chat with Claude</div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-step">🏗️ Architecture ideas</div>
+      <span class="flow-arrow">→</span>
+      <div class="flow-step">⚡ Working bot</div>
+    </div>
+
+    <div class="scenario" style="border-left-color: var(--accent); margin-top: 24px;">
+      <div class="scenario-title">The Idea</div>
+      <p>What if a Slack bot could watch our conversations and automatically turn them into action — reviewing PRs, capturing ideas as tickets, and creating Jira issues from thread discussions? No forms, no context-switching, just natural language.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 3: Overview -->
 <section class="slide" id="overview">
   <div class="split-layout">
     <div class="text-side">
@@ -945,7 +975,7 @@
   </div>
 </section>
 
-<!-- SLIDE 13: How It Was Built -->
+<!-- SLIDE 14: How It Was Built -->
 <section class="slide" id="how-built">
   <div class="content">
 
@@ -954,21 +984,6 @@
     <div class="divider"></div>
 
     <p class="subtitle">No code written. Just ideas and conversation.</p>
-
-    <div class="scenario" style="border-left-color: var(--purple); margin-bottom: 24px;">
-      <div class="scenario-title">The Problem</div>
-      <p>We had a growing punch list — bugs spotted in reviews, product ideas floating in Slack, tasks discussed in threads — none of it making it into Jira. Things were getting lost. The backlog was falling behind real conversations.</p>
-    </div>
-
-    <div class="flow" style="margin: 32px 0;">
-      <div class="flow-step">😤 Punch list chaos</div>
-      <span class="flow-arrow">→</span>
-      <div class="flow-step">💬 Chat with Claude</div>
-      <span class="flow-arrow">→</span>
-      <div class="flow-step">🏗️ Architecture ideas</div>
-      <span class="flow-arrow">→</span>
-      <div class="flow-step">⚡ Working bot</div>
-    </div>
 
     <div class="two-col">
       <div>
