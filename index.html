@@ -328,6 +328,56 @@
       font-style: italic;
     }
 
+    /* Split layout: text left, image right */
+    .split-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+      max-width: 1400px;
+      width: 100%;
+      max-height: calc(100vh - 60px);
+      position: relative;
+      z-index: 1;
+    }
+
+    .split-layout .text-side {
+      overflow-y: auto;
+      max-height: calc(100vh - 80px);
+      scrollbar-width: none;
+    }
+
+    .split-layout .text-side::-webkit-scrollbar {
+      display: none;
+    }
+
+    .split-layout .image-side {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: calc(100vh - 80px);
+    }
+
+    .split-layout .image-side img {
+      max-width: 100%;
+      max-height: calc(100vh - 100px);
+      border-radius: 16px;
+      object-fit: contain;
+    }
+
+    @media (max-width: 1024px) {
+      .split-layout {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+      .split-layout .image-side {
+        height: auto;
+      }
+      .split-layout .image-side img {
+        max-height: 40vh;
+      }
+    }
+
     .two-col {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -365,6 +415,8 @@
       .number { font-size: 3.5rem; top: 20px; right: 40px; }
       .image-placeholder { margin: 16px 0; padding: 20px; }
       .image-placeholder img { max-height: 22vh; }
+      .split-layout { gap: 24px; }
+      .split-layout .image-side img { max-height: calc(100vh - 80px); }
       .reactions { gap: 12px; }
       .reaction { padding: 10px 16px !important; }
       .badge { margin-bottom: 10px; }
@@ -454,53 +506,52 @@
 
 <!-- SLIDE 1: Title -->
 <section class="slide" id="title">
-  <div class="content" style="text-align: center;">
-    <div class="badge badge-red">Internal Tool</div>
-    <h1>Claude Agent<br>Slack Bridge</h1>
-    <p class="subtitle" style="margin: 20px auto;">
-      An AI-powered Slack bot that auto-reviews PRs, tracks ideas as Jira tickets, 
-      answers questions, and creates tickets from thread conversations.
-    </p>
-    <div class="image-placeholder" style="border: none; background: none; padding: 0;">
-      <img src="images/hero.jpg" alt="Claude Agent — robot reviewing code with Slack windows" />
+  <div class="split-layout">
+    <div class="text-side">
+      <div class="badge badge-red">Internal Tool</div>
+      <h1>Claude Agent<br>Slack Bridge</h1>
+      <p class="subtitle" style="margin: 20px 0;">
+        An AI-powered Slack bot that auto-reviews PRs, tracks ideas as Jira tickets,
+        answers questions, and creates tickets from thread conversations.
+      </p>
+      <div class="tag-list">
+        <span class="tag">Slack Bot</span>
+        <span class="tag">Claude Code</span>
+        <span class="tag">PR Reviews</span>
+        <span class="tag">Jira Integration</span>
+        <span class="tag">Docker</span>
+      </div>
     </div>
-    <div class="tag-list" style="justify-content: center;">
-      <span class="tag">Slack Bot</span>
-      <span class="tag">Claude Code</span>
-      <span class="tag">PR Reviews</span>
-      <span class="tag">Jira Integration</span>
-      <span class="tag">Docker</span>
+    <div class="image-side">
+      <img src="images/hero.jpg" alt="Claude Agent — robot reviewing code with Slack windows" />
     </div>
   </div>
 </section>
 
 <!-- SLIDE 2: Overview -->
 <section class="slide" id="overview">
-  <div class="content">
-    <span class="number">01</span>
-    <div class="badge badge-blue">What It Does</div>
-    <h2>Three Modes of Operation</h2>
-    <div class="divider"></div>
-    
-    <div class="cards">
-      <div class="card">
-        <div class="icon">👀</div>
-        <h3>PR Watcher</h3>
-        <p>Monitors every channel it's invited to. When someone posts a GitHub PR link, it automatically reviews the code, cross-checks with Jira tickets, and gives an approve/request-changes verdict.</p>
-      </div>
-      <div class="card">
-        <div class="icon">💬</div>
-        <h3>DM Assistant</h3>
-        <p>Personal AI assistant via direct messages. Routes your intent — ideas become Jira tickets, tasks become tracked work items, questions get answered with full context.</p>
-      </div>
-      <div class="card">
-        <div class="icon">🏷️</div>
-        <h3>@Mention Handler</h3>
-        <p>Tag the bot in any thread to create a Jira ticket from the conversation context, update existing tickets, or even trigger code implementation.</p>
+  <div class="split-layout">
+    <div class="text-side">
+      <span class="number" style="position: static; display: block; margin-bottom: -10px;">01</span>
+      <div class="badge badge-blue">What It Does</div>
+      <h2>Three Modes of Operation</h2>
+      <div class="divider"></div>
+      <div class="cards" style="grid-template-columns: 1fr;">
+        <div class="card">
+          <h3>👀 PR Watcher</h3>
+          <p>Monitors channels for GitHub PR links. Auto-reviews code, cross-checks Jira tickets, and gives approve/request-changes verdict.</p>
+        </div>
+        <div class="card">
+          <h3>💬 DM Assistant</h3>
+          <p>Personal AI assistant via DMs. Ideas become Jira tickets, tasks get tracked, questions get answered with full context.</p>
+        </div>
+        <div class="card">
+          <h3>🏷️ @Mention Handler</h3>
+          <p>Tag the bot in any thread to create Jira tickets, update existing ones, or trigger code implementation.</p>
+        </div>
       </div>
     </div>
-
-    <div class="image-placeholder" style="border: none; background: none; padding: 0;">
+    <div class="image-side">
       <img src="images/three-modes.jpg" alt="Three modes — Code Review, Ideas, Task Tracking" />
     </div>
   </div>
@@ -508,45 +559,41 @@
 
 <!-- SLIDE 3: Architecture -->
 <section class="slide" id="architecture">
-  <div class="content">
-    <span class="number">02</span>
-    <div class="badge badge-purple">Architecture</div>
-    <h2>How It's Built</h2>
-    <div class="divider"></div>
+  <div class="split-layout">
+    <div class="text-side">
+      <span class="number" style="position: static; display: block; margin-bottom: -10px;">02</span>
+      <div class="badge badge-purple">Architecture</div>
+      <h2>How It's Built</h2>
+      <div class="divider"></div>
 
-    <div class="flow">
-      <div class="flow-step">📨 Slack Event</div>
-      <span class="flow-arrow">→</span>
-      <div class="flow-step">🔀 Router</div>
-      <span class="flow-arrow">→</span>
-      <div class="flow-step">🧠 Claude Code</div>
-      <span class="flow-arrow">→</span>
-      <div class="flow-step">📤 Slack Response</div>
-    </div>
-
-    <div class="two-col">
-      <div>
-        <h3>Stack</h3>
-        <ul>
-          <li>Node.js + Slack Bolt SDK (Socket Mode)</li>
-          <li>Claude Code CLI via Docker</li>
-          <li>Skills: GitHub, Atlassian, Figma</li>
-          <li>Memory system with action logs + learnings</li>
-          <li>AWS Bedrock for Claude API</li>
-        </ul>
+      <div class="flow">
+        <div class="flow-step">📨 Slack Event</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step">🔀 Router</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step">🧠 Claude Code</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step">📤 Response</div>
       </div>
-      <div>
-        <h3>Message Routing</h3>
-        <ul>
-          <li><strong>DM</strong> → Intent Router → (Task / Idea / Implement)</li>
-          <li><strong>Channel msg with PR link</strong> → PR Handler</li>
-          <li><strong>@mention</strong> → Mention Handler → Jira / Update / Implement</li>
-          <li><strong>Thread reply</strong> → Context-aware re-routing</li>
-        </ul>
-      </div>
-    </div>
 
-    <div class="image-placeholder" style="border: none; background: none; padding: 0;">
+      <h3>Stack</h3>
+      <ul>
+        <li>Node.js + Slack Bolt SDK (Socket Mode)</li>
+        <li>Claude Code CLI via Docker</li>
+        <li>Skills: GitHub, Atlassian, Figma</li>
+        <li>Memory system with action logs + learnings</li>
+        <li>AWS Bedrock for Claude API</li>
+      </ul>
+
+      <h3 style="margin-top: 16px;">Message Routing</h3>
+      <ul>
+        <li><strong>DM</strong> → Intent Router → (Task / Idea / Implement)</li>
+        <li><strong>Channel msg with PR link</strong> → PR Handler</li>
+        <li><strong>@mention</strong> → Mention Handler → Jira / Update / Implement</li>
+        <li><strong>Thread reply</strong> → Context-aware re-routing</li>
+      </ul>
+    </div>
+    <div class="image-side">
       <img src="images/architecture.jpg" alt="Architecture — brain node connected to service nodes" />
     </div>
   </div>
@@ -554,40 +601,35 @@
 
 <!-- SLIDE 4: PR Review -->
 <section class="slide" id="pr-review">
-  <div class="content">
-    <span class="number">03</span>
-    <div class="badge badge-green">Core Feature</div>
-    <h2>Automatic PR Reviews</h2>
-    <div class="divider"></div>
+  <div class="split-layout">
+    <div class="text-side">
+      <span class="number" style="position: static; display: block; margin-bottom: -10px;">03</span>
+      <div class="badge badge-green">Core Feature</div>
+      <h2>Automatic PR Reviews</h2>
+      <div class="divider"></div>
 
-    <p class="subtitle">Drop a PR link in any channel. The bot handles the rest.</p>
+      <p class="subtitle">Drop a PR link in any channel. The bot handles the rest.</p>
 
-    <div class="flow">
-      <div class="flow-step">🔗 PR Link Posted</div>
-      <span class="flow-arrow">→</span>
-      <div class="flow-step">👀 Eyes Reaction</div>
-      <span class="flow-arrow">→</span>
-      <div class="flow-step">📋 Check Status</div>
-      <span class="flow-arrow">→</span>
-      <div class="flow-step">🔍 Review Code</div>
-      <span class="flow-arrow">→</span>
-      <div class="flow-step">⚖️ Decision</div>
-      <span class="flow-arrow">→</span>
-      <div class="flow-step">👍 or ⚠️</div>
-    </div>
+      <div class="flow">
+        <div class="flow-step">🔗 PR Link</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step">👀 Eyes</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step">🔍 Review</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step">👍 or ⚠️</div>
+      </div>
 
-    <div class="two-col">
       <div class="scenario">
         <div class="scenario-title">Standard Review</div>
         <p>Posts PR link → bot reads the diff via GitHub skill → writes comprehensive code review in thread → makes approve/request-changes decision</p>
       </div>
       <div class="scenario">
         <div class="scenario-title">Jira Cross-Check</div>
-        <p>If the PR description contains a ticket number (e.g. <code>ABC-123</code>), the bot fetches the Jira ticket first and verifies the code actually implements the requirements</p>
+        <p>If the PR description contains a ticket number (e.g. <code>ABC-123</code>), the bot fetches the Jira ticket first and verifies the code implements the requirements</p>
       </div>
     </div>
-
-    <div class="image-placeholder" style="border: none; background: none; padding: 0;">
+    <div class="image-side">
       <img src="images/pr-review.jpg" alt="Robot reviewing code with magnifying glass" />
     </div>
   </div>
@@ -633,38 +675,36 @@
 
 <!-- SLIDE 6: DM Assistant -->
 <section class="slide" id="dm-assistant">
-  <div class="content">
-    <span class="number">05</span>
-    <div class="badge badge-orange">Personal Assistant</div>
-    <h2>DM — Intent-Based Routing</h2>
-    <div class="divider"></div>
+  <div class="split-layout">
+    <div class="text-side">
+      <span class="number" style="position: static; display: block; margin-bottom: -10px;">05</span>
+      <div class="badge badge-orange">Personal Assistant</div>
+      <h2>DM — Intent-Based Routing</h2>
+      <div class="divider"></div>
 
-    <p class="subtitle">Message the bot directly. It classifies your intent and routes accordingly.</p>
+      <p class="subtitle">Message the bot directly. It classifies your intent and routes accordingly.</p>
 
-    <div class="cards">
-      <div class="card" style="border-top: 3px solid var(--orange);">
-        <div class="icon">💡</div>
-        <h3>IDEA</h3>
-        <p>Say something like "What if we added dark mode?" — bot creates a Jira Story in RTL project with <code>(IDEA)</code> prefix. Tracked, not lost.</p>
+      <div class="cards" style="grid-template-columns: 1fr;">
+        <div class="card" style="border-top: 3px solid var(--orange);">
+          <h3>💡 IDEA</h3>
+          <p>"What if we added dark mode?" — bot creates a Jira Story with <code>(IDEA)</code> prefix.</p>
+        </div>
+        <div class="card" style="border-top: 3px solid var(--blue);">
+          <h3>📋 TASK</h3>
+          <p>"Update the CI pipeline to cache node_modules" — bot creates a Jira Task with <code>(TASK)</code> prefix.</p>
+        </div>
+        <div class="card" style="border-top: 3px solid var(--green);">
+          <h3>⚡ IMPLEMENT</h3>
+          <p>"How do I configure CORS in Express?" — bot answers directly, no ticket created.</p>
+        </div>
       </div>
-      <div class="card" style="border-top: 3px solid var(--blue);">
-        <div class="icon">📋</div>
-        <h3>TASK</h3>
-        <p>"Update the CI pipeline to cache node_modules" — bot creates a Jira Task with <code>(TASK)</code> prefix, assigned to you.</p>
-      </div>
-      <div class="card" style="border-top: 3px solid var(--green);">
-        <div class="icon">⚡</div>
-        <h3>IMPLEMENT</h3>
-        <p>"How do I configure CORS in Express?" — bot answers directly, no ticket. Quick questions get quick answers.</p>
+
+      <div class="scenario" style="border-left-color: var(--orange);">
+        <div class="scenario-title">Thread Conversations</div>
+        <p>Reply in a thread to continue the conversation. Full thread history is maintained — no intent routing needed for follow-ups.</p>
       </div>
     </div>
-
-    <div class="scenario" style="border-left-color: var(--orange);">
-      <div class="scenario-title">Thread Conversations</div>
-      <p>Reply in a thread to continue the conversation. The bot fetches full thread history and maintains context — no intent routing needed for follow-ups.</p>
-    </div>
-
-    <div class="image-placeholder" style="border: none; background: none; padding: 0;">
+    <div class="image-side">
       <img src="images/dm-assistant.jpg" alt="DM message flowing through pipeline to AI cognitive engine" />
     </div>
   </div>
@@ -672,46 +712,41 @@
 
 <!-- SLIDE 7: @Mention Handler -->
 <section class="slide" id="mentions">
-  <div class="content">
-    <span class="number">06</span>
-    <div class="badge badge-purple">Channel Power</div>
-    <h2>@Mention — Thread to Ticket Pipeline</h2>
-    <div class="divider"></div>
+  <div class="split-layout">
+    <div class="text-side">
+      <span class="number" style="position: static; display: block; margin-bottom: -10px;">06</span>
+      <div class="badge badge-purple">Channel Power</div>
+      <h2>@Mention — Thread to Ticket</h2>
+      <div class="divider"></div>
 
-    <p class="subtitle">Turn any Slack conversation into a tracked Jira ticket with one @mention.</p>
+      <p class="subtitle">Turn any Slack conversation into a tracked Jira ticket with one @mention.</p>
 
-    <div class="flow">
-      <div class="flow-step">💬 Thread Discussion</div>
-      <span class="flow-arrow">→</span>
-      <div class="flow-step">🏷️ @bot create ticket</div>
-      <span class="flow-arrow">→</span>
-      <div class="flow-step">📎 Files Attached</div>
-      <span class="flow-arrow">→</span>
-      <div class="flow-step">🔗 Slack Link in Ticket</div>
-    </div>
-
-    <div class="two-col">
-      <div>
-        <h3>What It Captures</h3>
-        <ul>
-          <li>Full thread conversation as ticket description</li>
-          <li>Attached files (images, docs) → Jira attachments</li>
-          <li>Permalink back to original Slack thread</li>
-          <li>Proper issue type (Story, Bug, Task, Spike)</li>
-        </ul>
+      <div class="flow">
+        <div class="flow-step">💬 Thread</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step">🏷️ @bot</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step">📎 Attach</div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step">🔗 Ticket</div>
       </div>
-      <div>
-        <h3>Follow-Up Actions</h3>
-        <ul>
-          <li>@mention again → update the existing ticket</li>
-          <li>"implement it" → bot reads ticket, writes code, opens PR</li>
-          <li>"fix it" → same implementation flow</li>
-          <li>All actions tracked via thread context</li>
-        </ul>
-      </div>
-    </div>
 
-    <div class="image-placeholder" style="border: none; background: none; padding: 0;">
+      <h3>What It Captures</h3>
+      <ul>
+        <li>Full thread conversation as ticket description</li>
+        <li>Attached files (images, docs) → Jira attachments</li>
+        <li>Permalink back to original Slack thread</li>
+        <li>Proper issue type (Story, Bug, Task, Spike)</li>
+      </ul>
+
+      <h3 style="margin-top: 16px;">Follow-Up Actions</h3>
+      <ul>
+        <li>@mention again → update the existing ticket</li>
+        <li>"implement it" → bot reads ticket, writes code, opens PR</li>
+        <li>"fix it" → same implementation flow</li>
+      </ul>
+    </div>
+    <div class="image-side">
       <img src="images/mention.jpg" alt="@Mention — Create, Update, Implement" />
     </div>
   </div>
@@ -800,38 +835,34 @@
 
 <!-- SLIDE 10: Setup -->
 <section class="slide" id="setup">
-  <div class="content" style="text-align: center;">
-    <span class="number">09</span>
-    <div class="badge badge-green">Get Started</div>
-    <h2>Setup in 3 Steps</h2>
-    <div class="divider" style="margin: 24px auto;"></div>
+  <div class="split-layout">
+    <div class="text-side">
+      <span class="number" style="position: static; display: block; margin-bottom: -10px;">09</span>
+      <div class="badge badge-green">Get Started</div>
+      <h2>Setup in 3 Steps</h2>
+      <div class="divider"></div>
 
-    <div class="cards" style="text-align: left;">
-      <div class="card" style="border-top: 3px solid var(--green);">
-        <div class="icon">1️⃣</div>
-        <h3>Configure</h3>
-        <p>Create <code>.env</code> with Slack tokens, GitHub token, Jira credentials. Or run <code>./claude</code> and ask "help me bootstrap".</p>
+      <div class="cards" style="grid-template-columns: 1fr;">
+        <div class="card" style="border-top: 3px solid var(--green);">
+          <h3>1️⃣ Configure</h3>
+          <p>Create <code>.env</code> with Slack tokens, GitHub token, Jira credentials. Or run <code>./claude</code> and ask "help me bootstrap".</p>
+        </div>
+        <div class="card" style="border-top: 3px solid var(--blue);">
+          <h3>2️⃣ Launch</h3>
+          <p><code>./claude slack</code> — starts the Docker container in Socket Mode. No webhooks, no public URLs needed.</p>
+        </div>
+        <div class="card" style="border-top: 3px solid var(--purple);">
+          <h3>3️⃣ Invite</h3>
+          <p>Add the bot to channels with <code>/invite @BotName</code>. Starts watching for PR links and @mentions immediately.</p>
+        </div>
       </div>
-      <div class="card" style="border-top: 3px solid var(--blue);">
-        <div class="icon">2️⃣</div>
-        <h3>Launch</h3>
-        <p><code>./claude slack</code> — starts the Docker container with Slack Bridge in Socket Mode. No webhooks, no public URLs needed.</p>
-      </div>
-      <div class="card" style="border-top: 3px solid var(--purple);">
-        <div class="icon">3️⃣</div>
-        <h3>Invite</h3>
-        <p>Add the bot to your channels with <code>/invite @BotName</code>. It starts watching for PR links and @mentions immediately.</p>
-      </div>
-    </div>
 
-    <div class="image-placeholder" style="border: none; background: none; padding: 0; margin-top: 40px;">
-      <img src="images/setup.jpg" alt="Developer conducting holographic screens — zen productivity with Claude Code" />
-    </div>
-
-    <div style="margin-top: 40px;">
-      <p style="color: var(--muted); font-size: 1.1rem;">
+      <p style="color: var(--muted); font-size: 0.95rem; margin-top: 20px;">
         Built with Claude Code · Powered by AWS Bedrock · Open for contributions
       </p>
+    </div>
+    <div class="image-side">
+      <img src="images/setup.jpg" alt="Developer conducting holographic screens — zen productivity with Claude Code" />
     </div>
   </div>
 </section>
