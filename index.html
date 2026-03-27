@@ -134,21 +134,17 @@
     .slide-counter {
       position: fixed;
       bottom: 16px;
-      right: 24px;
+      left: 24px;
       background: rgba(30, 30, 50, 0.9);
       color: var(--muted);
       padding: 6px 14px;
       border-radius: 8px;
       font-size: 0.8rem;
       z-index: 200;
-      opacity: 0;
+      opacity: 1;
       transition: opacity 0.3s;
       backdrop-filter: blur(8px);
       border: 1px solid rgba(255,255,255,0.08);
-    }
-
-    body.fullscreen .slide-counter {
-      opacity: 1;
     }
 
     h1 {
@@ -422,7 +418,6 @@
       .scenario p { font-size: 0.85rem; }
       .two-col { gap: 20px; margin-top: 16px; }
       .divider { margin: 16px 0; }
-      .number { display: none !important; }
       .image-placeholder { margin: 16px 0; padding: 20px; }
       .image-placeholder img { max-height: 22vh; }
       .split-layout { gap: 20px; }
@@ -482,14 +477,6 @@
       transform: scale(1.3);
     }
 
-    .number {
-      font-size: 5rem;
-      font-weight: 900;
-      color: rgba(233,69,96,0.15);
-      position: absolute;
-      top: 40px;
-      right: 60px;
-    }
 
     ul { list-style: none; padding: 0; }
     ul li { padding: 6px 0; color: var(--muted); }
@@ -542,8 +529,7 @@
 <section class="slide" id="overview">
   <div class="split-layout">
     <div class="text-side">
-      <span class="number" style="position: static; display: block; margin-bottom: -10px;">01</span>
-      <div class="badge badge-blue">What It Does</div>
+<div class="badge badge-blue">What It Does</div>
       <h2>Three Modes of Operation</h2>
       <div class="divider"></div>
       <div class="cards" style="grid-template-columns: 1fr;">
@@ -571,8 +557,7 @@
 <section class="slide" id="architecture">
   <div class="split-layout">
     <div class="text-side">
-      <span class="number" style="position: static; display: block; margin-bottom: -10px;">02</span>
-      <div class="badge badge-purple">Architecture</div>
+<div class="badge badge-purple">Architecture</div>
       <h2>How It's Built</h2>
       <div class="divider"></div>
 
@@ -613,8 +598,7 @@
 <section class="slide" id="pr-review">
   <div class="split-layout">
     <div class="text-side">
-      <span class="number" style="position: static; display: block; margin-bottom: -10px;">03</span>
-      <div class="badge badge-green">Core Feature</div>
+<div class="badge badge-green">Core Feature</div>
       <h2>Automatic PR Reviews</h2>
       <div class="divider"></div>
 
@@ -648,7 +632,7 @@
 <!-- SLIDE 5: PR Flow Detail -->
 <section class="slide" id="pr-flow">
   <div class="content">
-    <span class="number">04</span>
+
     <div class="badge badge-green">Deep Dive</div>
     <h2>PR Review — Smart Features</h2>
     <div class="divider"></div>
@@ -687,8 +671,7 @@
 <section class="slide" id="dm-assistant">
   <div class="split-layout">
     <div class="text-side">
-      <span class="number" style="position: static; display: block; margin-bottom: -10px;">05</span>
-      <div class="badge badge-orange">Personal Assistant</div>
+<div class="badge badge-orange">Personal Assistant</div>
       <h2>DM — Intent-Based Routing</h2>
       <div class="divider"></div>
 
@@ -724,8 +707,7 @@
 <section class="slide" id="mentions">
   <div class="split-layout">
     <div class="text-side">
-      <span class="number" style="position: static; display: block; margin-bottom: -10px;">06</span>
-      <div class="badge badge-purple">Channel Power</div>
+<div class="badge badge-purple">Channel Power</div>
       <h2>@Mention — Thread to Ticket</h2>
       <div class="divider"></div>
 
@@ -765,7 +747,7 @@
 <!-- SLIDE 8: Use Cases -->
 <section class="slide" id="use-cases">
   <div class="content">
-    <span class="number">07</span>
+
     <div class="badge badge-red">Real World</div>
     <h2>Typical Use Cases</h2>
     <div class="divider"></div>
@@ -802,7 +784,7 @@
 <!-- SLIDE 9: Reactions -->
 <section class="slide" id="reactions">
   <div class="content">
-    <span class="number">08</span>
+
     <div class="badge badge-blue">Visual Feedback</div>
     <h2>Reaction Language</h2>
     <div class="divider"></div>
@@ -847,8 +829,7 @@
 <section class="slide" id="setup">
   <div class="split-layout">
     <div class="text-side">
-      <span class="number" style="position: static; display: block; margin-bottom: -10px;">09</span>
-      <div class="badge badge-green">Get Started</div>
+<div class="badge badge-green">Get Started</div>
       <h2>Setup in 3 Steps</h2>
       <div class="divider"></div>
 
@@ -880,7 +861,7 @@
 <!-- SLIDE 11: Demo -->
 <section class="slide" id="demo">
   <div class="content">
-    <span class="number">10</span>
+
     <div class="badge badge-green">Live Demo</div>
     <h2>See It In Action</h2>
     <div class="divider"></div>
@@ -915,7 +896,7 @@
 <!-- SLIDE 12: QA -->
 <section class="slide" id="qa">
   <div class="content">
-    <span class="number">11</span>
+
     <div class="badge badge-red">Q&A</div>
     <h2>Questions?</h2>
     <div class="divider"></div>
@@ -954,7 +935,7 @@
 <!-- SLIDE 13: How It Was Built -->
 <section class="slide" id="how-built">
   <div class="content">
-    <span class="number">12</span>
+
     <div class="badge badge-purple">Origin Story</div>
     <h2>How It Was Built</h2>
     <div class="divider"></div>
@@ -1038,6 +1019,9 @@
   function updateSlideCounter() {
     slideCounter.textContent = `${currentSlide + 1} / ${slideCount}`;
   }
+
+  // Show counter on load
+  updateSlideCounter();
 
   function showToast(msg) {
     fsToast.textContent = msg;
