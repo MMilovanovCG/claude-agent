@@ -25,6 +25,11 @@
       scroll-snap-type: y mandatory;
       overflow-y: scroll;
       scroll-behavior: smooth;
+      scrollbar-width: none;
+    }
+
+    html::-webkit-scrollbar {
+      display: none;
     }
 
     body {
@@ -81,11 +86,6 @@
     body.fullscreen html {
       overflow-y: scroll;
       scroll-snap-type: y mandatory;
-      scrollbar-width: none;
-    }
-
-    body.fullscreen html::-webkit-scrollbar {
-      display: none;
     }
 
     body.fullscreen .nav {
