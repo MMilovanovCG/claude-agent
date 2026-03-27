@@ -939,39 +939,12 @@
 
 <!-- SLIDE 12: QA -->
 <section class="slide" id="qa">
-  <div class="content">
-
+  <div class="content" style="text-align: center;">
     <div class="badge badge-red">Q&A</div>
     <h2>Questions?</h2>
-    <div class="divider"></div>
-
-    <p class="subtitle">Common things people ask:</p>
-
-    <div class="cards" style="grid-template-columns: 1fr 1fr;">
-      <div class="scenario">
-        <div class="scenario-title">How accurate are the reviews?</div>
-        <p>Claude reads the actual diff and Jira ticket requirements. It catches logic issues, missing edge cases, and spec mismatches — but it's a second opinion, not a replacement for human review.</p>
-      </div>
-      <div class="scenario">
-        <div class="scenario-title">Does it touch our codebase?</div>
-        <p>Only when explicitly asked ("implement it" / "fix it"). For PR reviews it's read-only — it fetches the diff via GitHub API, never clones or writes to your repo.</p>
-      </div>
-      <div class="scenario">
-        <div class="scenario-title">What if it makes a mistake?</div>
-        <p>All Jira tickets created by the bot have clear labels. All PRs opened by the bot are tagged. Human approval is always the final gate — the bot assists, it doesn't merge.</p>
-      </div>
-      <div class="scenario">
-        <div class="scenario-title">How is it deployed?</div>
-        <p>Docker container, Socket Mode (no public URL needed). Runs on any machine with Docker. All credentials in <code>.env</code>. Logs to stdout. One command to start: <code>./claude slack</code></p>
-      </div>
-      <div class="scenario">
-        <div class="scenario-title">Can we add more integrations?</div>
-        <p>Yes — the skills system is modular. Figma, Confluence, GitHub, Jira are already built. Adding a new integration is writing a skill file and registering it.</p>
-      </div>
-      <div class="scenario">
-        <div class="scenario-title">What does it cost?</div>
-        <p>AWS Bedrock pricing — you pay per token. A typical PR review is ~2k–8k tokens. Jira ticket creation is ~1k–3k. For a team of 10 engineers, expect single-digit dollars per day.</p>
-      </div>
+    <div class="divider" style="margin: 24px auto;"></div>
+    <div class="image-placeholder" style="border: none; background: none; padding: 0;">
+      <img src="images/qa.jpg" alt="Robot holding microphone toward audience for Q&A" />
     </div>
   </div>
 </section>
