@@ -80,12 +80,13 @@
 
     /* Fullscreen mode */
     body.fullscreen {
-      overflow: hidden;
-    }
-
-    body.fullscreen html {
       overflow-y: scroll;
       scroll-snap-type: y mandatory;
+      scrollbar-width: none;
+    }
+
+    body.fullscreen::-webkit-scrollbar {
+      display: none;
     }
 
     body.fullscreen .nav {
